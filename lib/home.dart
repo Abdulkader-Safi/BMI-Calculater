@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:bmi_calculater/result.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -10,7 +12,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isMale = true;
 
-  double heightVal = 170;
+  double heightVal = 173;
+  double result = 0.0;
 
   int weight = 55;
   int age = 18;
@@ -31,10 +34,55 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   children: [
-                    GenderSelector(context, "male"),
+                    genderSelector(context, "male"),
                     const SizedBox(width: 15),
-                    GenderSelector(context, "female"),
+                    genderSelector(context, "female"),
                   ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.blueGrey,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Height",
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            heightVal.toStringAsFixed(1),
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                          Text(
+                            "CM",
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                      Slider(
+                        min: 90,
+                        max: 220,
+                        value: heightVal,
+                        onChanged: (newVal) {
+                          setState(() {
+                            heightVal = newVal;
+                          });
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -43,10 +91,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   children: [
-                    CounterSelector(context, "weight"),
+                    counterSelector(context, "weight"),
                     const SizedBox(width: 15),
-                    CounterSelector(context, "age"),
+                    counterSelector(context, "age"),
                   ],
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.teal,
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 16,
+              child: TextButton(
+                onPressed: () {
+                  result = weight / pow(heightVal / 100, 2);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Result(
+                          result: result,
+                          age: age,
+                          isMale: isMale,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  "Calculate",
+                  style: Theme.of(context).textTheme.headline1,
                 ),
               ),
             ),
@@ -56,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Expanded GenderSelector(BuildContext context, String type) {
+  Expanded genderSelector(BuildContext context, String type) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -90,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Expanded CounterSelector(BuildContext context, String type) {
+  Expanded counterSelector(BuildContext context, String type) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(

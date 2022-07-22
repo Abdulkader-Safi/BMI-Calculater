@@ -31,6 +31,7 @@ class Result extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Result"),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Center(
@@ -39,31 +40,23 @@ class Result extends StatelessWidget {
             children: [
               Text(
                 "Gender: ${isMale ? 'Male' : 'Female'}",
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.center,
               ),
               Text(
                 "Result: ${result.toStringAsFixed(2)}",
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.center,
               ),
               Text(
                 "Healthiness: $resultPhrase",
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.center,
               ),
               Text(
                 "Age: $age",
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

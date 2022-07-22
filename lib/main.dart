@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bmi_calculater/home.dart';
+// import 'package:bmi_calculater/home.dart';
 import 'package:bmi_calculater/result.dart';
 
 void main() => runApp(const MyApp());

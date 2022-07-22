@@ -23,16 +23,34 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Center(
-          child: Row(
-            children: [
-              const SizedBox(width: 15),
-              GenderSelector(context, "male"),
-              const SizedBox(width: 15),
-              GenderSelector(context, "female"),
-              const SizedBox(width: 15),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    GenderSelector(context, "male"),
+                    const SizedBox(width: 15),
+                    GenderSelector(context, "female"),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    CounterSelector(context, "weight"),
+                    const SizedBox(width: 15),
+                    CounterSelector(context, "age"),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -56,14 +74,67 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(type == "male" ? Icons.male : Icons.female),
+              Icon(
+                type == "male" ? Icons.male : Icons.female,
+                size: 90,
+              ),
               const SizedBox(height: 15),
               Text(
                 type == "male" ? "Male" : "Female",
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headline1,
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Expanded CounterSelector(BuildContext context, String type) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.blueGrey,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              type == "weight" ? "Weight" : "Age",
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            const SizedBox(height: 15),
+            Text(
+              type == "weight" ? "$weight" : "$age",
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton(
+                  heroTag: type == "weight" ? "weight--" : "age--",
+                  onPressed: () {
+                    setState(() {
+                      type == "weight" ? weight-- : age--;
+                    });
+                  },
+                  mini: true,
+                  child: const Icon(Icons.remove),
+                ),
+                FloatingActionButton(
+                  heroTag: type == "weight" ? "weight++" : "age++",
+                  onPressed: () {
+                    setState(() {
+                      type == "weight" ? weight++ : age++;
+                    });
+                  },
+                  mini: true,
+                  child: const Icon(Icons.add),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

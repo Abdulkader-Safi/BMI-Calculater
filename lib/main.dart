@@ -16,11 +16,15 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.black,
         iconTheme: const IconThemeData(
           color: Colors.white,
-          size: 90,
         ),
         textTheme: const TextTheme(
-          headline2: TextStyle(
+          headline1: TextStyle(
             fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          headline2: TextStyle(
+            fontSize: 45,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

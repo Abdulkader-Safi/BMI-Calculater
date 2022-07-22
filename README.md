@@ -7,3 +7,4 @@ A new Flutter project.
 3. (#3) finish Result page backend
 4. (#4) Start working on Home Page
 5. (#5) finish 50% of Home Page
+5. (#6) Project Done
